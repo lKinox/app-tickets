@@ -1,0 +1,203 @@
+body {
+    display: block;
+    margin: 0px;
+}
+
+h1 {
+    font-family: Roboto;
+    font-weight: 500;
+}
+
+h2 {
+    font-family: Roboto;
+    font-weight: 400;
+}
+
+p {
+    font-family: Roboto;
+    font-weight: 400;
+}
+
+/** base.html **/
+
+nav {
+    background-color: #002d5b;
+    overflow: hidden;
+  }
+  
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+  
+nav li {
+    float: left;
+}
+  
+nav li a {
+    font-family: Roboto;
+    font-weight: 400;
+    display: block;
+    color: #84C1FF;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+  
+nav li a:hover {
+    background-color: #111;
+}
+
+/** fin base.html **/
+
+
+
+/** index.html **/
+
+.productos_listas {
+    background-color: #5A98DB;
+}
+
+.productos_listas .productos_lista {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 1px;
+    list-style-type: none;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+}
+
+.productos_listas .productos_lista li {
+    display: flex;
+    border: 1px solid #000;
+    border-radius: 5px;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+    margin: 6px;
+    background-color: #fff;
+}
+
+.productos_listas .productos_lista li div{
+    font-family: Roboto;
+    font-weight: 300;
+}
+
+.productos_listas .productos_lista li img {
+    width: 70%;
+    height: auto;
+}
+
+.productos_listas .productos_lista li .producto-precio {
+    padding: 0px;
+    width: 50%;
+    margin: auto;
+}
+
+.form_productos {
+    margin-left: 6px;
+    margin-bottom: 6px;
+    font-family: Roboto;
+    font-weight: 400;
+    color: #fff;
+}
+
+/** fin index.html **/
+
+
+
+/** factura **/
+
+/** fin factura.html **/
+
+
+
+/** facturas **/
+
+.filtro_factura {
+    display: flex;
+    margin: 0px 0px 10px 6px;
+    padding: 30px 10px 30px 10px;
+}
+
+.filtro_factura form label{
+    font-family: Roboto;
+    font-weight: 400px;
+}
+
+.filtro_factura .filtro_btn_descargar{
+    margin-left: 5px;
+}
+
+.main_facturas {
+    background-color: #AECFF2;
+}
+
+.main_facturas table {
+    padding: 20px 10px 20px 10px;
+}
+
+.main_facturas table tr{
+    padding: 20px 10px 20px 10px;
+    background: #F0F7FF;
+}
+
+.main_facturas table thead tr th {
+    font-family: Roboto;
+    font-weight: 400px;
+    padding: 6px 4px 6px 4px;
+}
+
+.main_facturas table tbody tr td {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 400px;
+    padding: 6px 4px 6px 4px;
+}
+
+.main_facturas table tbody tr td ul{
+    font-family: Roboto;
+    font-size: 11px;
+    padding: 6px 4px 6px 4px;
+    list-style-type: none;
+    line-height: 20px;
+    letter-spacing: -0.5px;
+}
+
+.main_facturas table tbody tr td .estatus_pagar form{
+    display: flex;
+}
+
+.main_facturas table tbody tr td .estatus_pagar{
+    width: 100%;
+}
+
+.main_facturas table tbody tr td .estatus_pagar select{
+    width: 70%;
+}
+
+.main_facturas table tbody tr td .estatus_anulada{
+    margin: 12px 0px 0px 0px;
+    float: left;
+}
+
+.main_facturas table tbody tr td .eliminar_factura{
+    margin: 12px 3px 0px 3px;
+    float: left;
+}
+.main_facturas table tbody tr td .imprimir_factura{
+    margin: 12px 0px 0px 0px;
+}
+
+
+/** fin facturas.html **/
+
+
+
+/** productos **/
+
+/** fin productos.html **/

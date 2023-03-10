@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 style="text-align: center;">Lista de facturas de venta</h1>
+
+
+  <div class="main_facturas">
+
+  <div class="filtro_factura">
+    <form method="get" action="{{ url_for('facturas') }}">
+      <label for="fecha_desde">Fecha Desde:</label>
+      <input type="date" id="fecha_desde" name="fecha_desde" required>
+    
+      <label for="fecha_hasta">Fecha Hasta:</label>
+      <input type="date" id="fecha_hasta" name="fecha_hasta" required>
+    
+      <button type="submit">Filtrar</button>
+    </form>  
+
+    <form method="POST" action="{{ url_for('descargar_excel') }}" class="filtro_btn_descargar">
+      <input type="hidden" name="fecha_desde" value="{{ fecha_desde }}">
+      <input type="hidden" name="fecha_hasta" value="{{ fecha_hasta }}">
+      <button type="submit">Descargar Excel</button>
+    </form>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Productos</th>
+        <th>Total</th>
+        <th>Fecha y Hora</th>
+        <th>Serial</th>
+        <th>Premio</th>
+        <th>Estatus</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for factura in facturas[::-1] %}
+        <tr>
+          <td>{{ factura.nombre }}</td>
+          <td>{{ factura.apellido }}</td>
+          <td>
+            <ul>
+              {% for producto, info in factura.productos.items() %}
+              <li>{{ producto }} - Bs {{ info.precio }} ({{ info.origen }})</li>
+              {% endfor %}
+            </ul>
+          </td>
+          <td>Bs {{ factura.total }}</td>
+          <td>{{ factura.fecha }}</td>
+          <td>{{ factura.serial }}</td>
+          <td>
+            {% if factura.monto_pago %}
+              Bs {{ (factura.monto_pago) * 30 }}
+            {% else %}
+              Bs 0.0
+            {% endif %}
+          </td>
+          <td class="td_factura">
+            {% if factura.anulada %}
+              <div>Anulada el {{ factura.fecha_anulacion }}</div>
+            {% elif factura.pagada %}
+              <div>Pagada</div>
+            {% else %}
+              {% if factura.productos %}
+                <div class="estatus_pagar">
+                  <form method="POST" action="{{ url_for('pagar_factura', serial=factura.serial) }}">
+                    <select name="producto_a_pagar">
+                      {% for producto, info in factura.productos.items() %}
+                        <option value="{{ info.precio }}">{{ producto }} - Bs {{ info.precio }} ({{ info.origen }})</option>
+                      {% endfor %}
+                    </select>
+                    <button type="submit">Pagar</button>
+                  </form>
+                </div>
+              {% endif %}
+              {% if not factura.pagada %}
+                <div class="estatus_anulada">
+                  <form method="POST" action="{{ url_for('anular_factura', serial=factura.serial) }}">
+                    <button type="submit">Anular</button>
+                  </form>
+                </div>  
+              {% endif %}
+            {% endif %}
+            <div class="eliminar_factura">
+              <form method="POST" action="{{ url_for('eliminar_factura', serial=factura.serial) }}">
+                <button type="submit">Eliminar</button>
+              </form>
+            </div>
+            <div class="imprimir_factura">
+              <form method="POST" action="{{ url_for('generar_pdf_factura', serial=factura.serial) }}">
+                <button type="submit">Imprimir PDF</button>
+              </form>
+            </div> 
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  </div>
+{% endblock %}
+
+

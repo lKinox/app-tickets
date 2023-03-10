@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 style="text-align: center;">Productos</h1>
+<form action="{{ url_for('factura') }}" method="POST" class="productos_listas">
+  <h2 style="text-align: center; padding-top: 20px; color: #fff;">La Granjita</h2>
+  <ul class="productos_lista">
+    {% for producto in granja %}
+    <li>
+      <img src="{{ url_for('static', filename='imagenes/' + producto['imagen']) }}" alt="{{ producto['nombre'] }}">
+      <div style="display: flex; justify-content: center;">
+        <input type="checkbox" class="producto-checkbox" value="1">
+        <input type="hidden" name="origen_granjita" value="La Granjita">
+        <div>{{ producto['nombre'] }}</div>
+      </div>
+      <input type="number" name="{{ producto['nombre'] }}" class="producto-precio" value="0" step="0.01" min="0" disabled>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <h2 style="text-align: center; color: #fff;">Animalitos</h2>
+  <ul class="productos_lista">
+    {% for producto in animalitos %}
+    <li>
+      <img src="{{ url_for('static', filename='imagenes/' + producto['imagen']) }}" alt="{{ producto['nombre'] }}">
+      <div style="display: flex; justify-content: center;">
+        <input type="checkbox" class="producto-checkbox" value="1">
+        <input type="hidden" name="origen_animalitos" value="Animalitos">
+        <div>{{ producto['nombre'] }}</div>
+      </div>
+      <input type="number" name="{{ producto['nombre'] }}" class="producto-precio" value="0" step="0.01" min="0" disabled>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="form_productos">
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" id="nombre" class="" required><br>
+  </div>
+
+  <div class="form_productos">
+    <label for="apellido">Apellido:</label>
+    <input type="text" name="apellido" id="apellido" required><br>
+  </div>
+
+  <input type="submit" value="Generar factura" style="margin: 0px 0px 30px 6px;">
+</form>
+
+<script>
+  const checkboxesProductos = document.querySelectorAll(".producto-checkbox");
+
+  checkboxesProductos.forEach(function(checkbox) {
+    checkbox.addEventListener("change", function() {
+      const liElement = checkbox.closest("li");
+      const precioInput = liElement.querySelector(".producto-precio");
+      precioInput.disabled = !checkbox.checked;
+    });
+  });
+</script>
+
+{% endblock %}
+
+

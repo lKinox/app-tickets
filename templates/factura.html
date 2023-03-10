@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Factura</h1>
+
+<p>Nombre: {{ factura.nombre }} {{ factura.apellido }}</p>
+
+{% if productos %}
+<p>Productos:</p>
+<ul>
+{% for producto, info in factura.productos.items() %}
+<li>{{ producto }} - Bs {{ info.precio }} ({{ info.origen }})</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+<p>Precio total: Bs{{ factura.total }}</p>
+
+<p>Fecha: {{ factura.fecha }}</p>
+
+<p>Serial: {{ factura.serial }}</p>
+
+<form method="POST" action="{{ url_for('generar_pdf_factura', serial=factura.serial) }}">
+  <button type="submit">Imprimir PDF</button>
+</form>
+{% endblock %}
